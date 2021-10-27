@@ -5,6 +5,7 @@ import { config } from './config/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './components/user/user.module';
+import { RoleModule } from './components/role/role.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UserModule } from './components/user/user.module';
       isGlobal: true,
     }),
     UserModule,
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
