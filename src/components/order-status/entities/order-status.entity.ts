@@ -1,18 +1,15 @@
-import { User } from 'src/components/user/entities/user.entity';
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Role {
+export class OrderStatus {
   //PROPERTIES______________________________________________________________________________________
-  @PrimaryColumn({ name: 'id' })
+  @PrimaryGeneratedColumn({ name: 'id' })
   private _id: number;
 
-  @Column({ name: 'name', length: 15 })
+  @Column({ name: 'name' })
   private _name: string;
 
   //FOREIGN KEYS____________________________________________________________________________________
-  @OneToMany(() => User, (user) => user.role)
-  Users: User[];
 
   //METHODS_________________________________________________________________________________________
   /**

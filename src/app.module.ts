@@ -6,6 +6,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './components/user/user.module';
 import { RoleModule } from './components/role/role.module';
+import { AddressModule } from './components/address/address.module';
+import { ProductModule } from './components/product/product.module';
+import { OrderModule } from './components/order/order.module';
+import { OrderStatusModule } from './components/order-status/order-status.module';
+import { WeeklyProductModule } from './components/weekly-product/weekly-product.module';
+import { OrderProductModule } from './components/order-product/order-product.module';
 
 @Module({
   imports: [
@@ -29,6 +35,12 @@ import { RoleModule } from './components/role/role.module';
     }),
     UserModule,
     RoleModule,
+    AddressModule,
+    ProductModule,
+    OrderModule,
+    OrderStatusModule,
+    WeeklyProductModule,
+    OrderProductModule,
   ],
   controllers: [AppController],
   providers: [AppService],
