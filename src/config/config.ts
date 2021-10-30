@@ -10,4 +10,8 @@ export const config = {
     username: 'DATABASE_USERNAME',
     password: 'DATABASE_PASSWORD',
   },
+  jwt: {
+    secret: 'JWT_SECRET',
+    expiration: 'JWT_EXPIRATION',
+  },
 };

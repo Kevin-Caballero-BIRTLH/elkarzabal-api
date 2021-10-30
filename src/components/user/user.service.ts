@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { FindOneOptions } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
-  private configService: ConfigService;
-
-  constructor(configService: ConfigService) {
-    this.configService = configService;
-  }
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly configService: ConfigService,
+  ) {}
 
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
@@ -19,8 +21,8 @@ export class UserService {
     return this.configService.get('DATABASE_NAME');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(findOneOptions: FindOneOptions): Promise<User> {
+    return this.userRepository.findOne(findOneOptions);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

@@ -12,6 +12,11 @@ import { OrderModule } from './components/order/order.module';
 import { OrderStatusModule } from './components/order-status/order-status.module';
 import { WeeklyProductModule } from './components/weekly-product/weekly-product.module';
 import { OrderProductModule } from './components/order-product/order-product.module';
+import { AuthService } from './components/auth/auth.service';
+import { AuthModule } from './components/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './components/auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -41,8 +46,17 @@ import { OrderProductModule } from './components/order-product/order-product.mod
     OrderStatusModule,
     WeeklyProductModule,
     OrderProductModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    AuthService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
+  exports: [AppService],
 })
 export class AppModule {}
