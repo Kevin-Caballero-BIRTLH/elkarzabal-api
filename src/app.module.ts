@@ -5,6 +5,18 @@ import { config } from './config/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './components/user/user.module';
+import { RoleModule } from './components/role/role.module';
+import { AddressModule } from './components/address/address.module';
+import { ProductModule } from './components/product/product.module';
+import { OrderModule } from './components/order/order.module';
+import { OrderStatusModule } from './components/order-status/order-status.module';
+import { WeeklyProductModule } from './components/weekly-product/weekly-product.module';
+import { OrderProductModule } from './components/order-product/order-product.module';
+import { AuthService } from './components/auth/auth.service';
+import { AuthModule } from './components/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './components/auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -27,8 +39,24 @@ import { UserModule } from './components/user/user.module';
       isGlobal: true,
     }),
     UserModule,
+    RoleModule,
+    AddressModule,
+    ProductModule,
+    OrderModule,
+    OrderStatusModule,
+    WeeklyProductModule,
+    OrderProductModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    AuthService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
+  exports: [AppService],
 })
 export class AppModule {}
