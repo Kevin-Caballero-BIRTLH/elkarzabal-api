@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { UserModule } from './components/user/user.module';
 import { version, description } from '../package.json';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +13,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.enableCors();
+  app.useGlobalPipes(new ValidationPipe({ forbidNonWhitelisted: true }));
 
   //#region Swagger config
   const swaggerConfig = new DocumentBuilder()
