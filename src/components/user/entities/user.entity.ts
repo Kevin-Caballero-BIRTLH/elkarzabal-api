@@ -37,10 +37,10 @@ export class User {
   @Column({ name: 'role_id' })
   roleId: number;
 
-  @Column({ name: 'group', length: 20 })
+  @Column({ name: 'group', length: 20, nullable: true })
   group: string;
 
-  @Column({ name: 'language', length: 1 })
+  @Column({ name: 'language', length: 3 })
   language: string;
 
   @CreateDateColumn({
@@ -71,4 +71,25 @@ export class User {
 
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
+
+  //METHODS_________________________________________________________________________________________
+  constructor(
+    name: string,
+    lastname: string,
+    phone: string,
+    email: string,
+    password: string,
+    roleId: number,
+    language: string,
+    group?: string,
+  ) {
+    this.name = name;
+    this.lastname = lastname;
+    this.phone = phone;
+    this.email = email;
+    this.password = password;
+    this.roleId = roleId;
+    this.language = language;
+    this.group = group;
+  }
 }
