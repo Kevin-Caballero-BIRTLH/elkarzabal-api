@@ -1,10 +1,10 @@
 import { User } from 'src/components/user/entities/user.entity';
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Role {
   //PROPERTIES______________________________________________________________________________________
-  @PrimaryColumn({ name: 'id' })
+  @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 
   @Column({ name: 'name', length: 15 })
@@ -13,4 +13,9 @@ export class Role {
   //FOREIGN KEYS____________________________________________________________________________________
   @OneToMany(() => User, (user) => user.role)
   Users: User[];
+
+  //METHODS_________________________________________________________________________________________
+  constructor(role: string) {
+    this.name = role;
+  }
 }
