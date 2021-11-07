@@ -25,7 +25,7 @@ export class User {
   @Column({ name: 'lastname', length: 50 })
   lastname: string;
 
-  @Column({ name: 'phone', length: 15 })
+  @Column({ name: 'phone', length: 9 })
   phone: string;
 
   @Column({ name: 'email' })
@@ -40,7 +40,7 @@ export class User {
   @Column({ name: 'group', length: 20, nullable: true })
   group: string;
 
-  @Column({ name: 'language', length: 3 })
+  @Column({ name: 'language', length: 3, default: 'ESP' })
   language: string;
 
   @CreateDateColumn({
