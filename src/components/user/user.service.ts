@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { FindManyOptions } from 'typeorm';
 import { FindOneOptions } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -18,7 +19,7 @@ export class UserService {
   }
 
   findAll() {
-    return this.configService.get('DATABASE_NAME');
+    return this.userRepository.find();
   }
 
   findOne(findOneOptions: FindOneOptions): Promise<User> {
