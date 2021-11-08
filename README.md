@@ -37,8 +37,8 @@ npm run seed:run
 
 ## Stay in touch
 
-- Backend dev - [Kevin Caballero](kcaballero@birt.eus)
-- Backend dev - [Sara Bozal](sbozal@birt.eus)
-- Frontend dev - [Aitor Dominguez](adominguez@birt.eus)
-- Frontend dev - [Ruben Cordero](rcordero@birt.eus)
+- Backend dev - [Kevin Caballero](mailto:kcaballero@birt.eus)
+- Backend dev - [Sara Bozal](mailto:sbozal@birt.eus)
+- Frontend dev - [Aitor Dominguez](mailto:adominguez@birt.eus)
+- Frontend dev - [Ruben Cordero](mailto:rcordero@birt.eus)
 
