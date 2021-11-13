@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { FindOneOptions } from 'typeorm';
+import { FindManyOptions, FindOneOptions } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductRepository } from './product.repository';
@@ -16,8 +16,10 @@ export class ProductService {
     return this.productRepository.save(createProductDto);
   }
 
-  findAll() {
-    return this.productRepository.find();
+  findAll(user?: number) {
+    const findManyOptions: FindManyOptions = { where: { userId: user } };
+    if (user) delete findManyOptions.where;
+    return this.productRepository.find(findManyOptions);
   }
 
   findOne(findOneOptions: FindOneOptions) {
@@ -38,11 +40,21 @@ export class ProductService {
       where: { id: id },
     });
 
-    if (productToDelete.id) {
+    if (!productToDelete.id) {
+      return `There is no product with id #${id}`;
+    } else {
       await this.productRepository.delete(id);
       return `The product with the id #${id} was removed`;
-    } else {
-      return `There is no product with id #${id}`;
     }
+  }
+
+  async findProductsByUserId(userId: number) {
+    const userProducts = await this.productRepository
+      .createQueryBuilder('p')
+      .innerJoinAndSelect('p.user', 'pu')
+      .where('pu.id = :userId', { userId })
+      .getMany();
+
+    return userProducts;
   }
 }

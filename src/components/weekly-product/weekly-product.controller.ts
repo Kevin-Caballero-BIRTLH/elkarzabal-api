@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { WeeklyProductService } from './weekly-product.service';
 import { CreateWeeklyProductDto } from './dto/create-weekly-product.dto';
 import { UpdateWeeklyProductDto } from './dto/update-weekly-product.dto';
@@ -19,11 +27,14 @@ export class WeeklyProductController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.weeklyProductService.findOne(+id);
+    return this.weeklyProductService.findOne({ where: { id: +id } });
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWeeklyProductDto: UpdateWeeklyProductDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateWeeklyProductDto: UpdateWeeklyProductDto,
+  ) {
     return this.weeklyProductService.update(+id, updateWeeklyProductDto);
   }
 

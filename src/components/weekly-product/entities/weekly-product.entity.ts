@@ -19,7 +19,13 @@ export class WeeklyProduct {
   @Column({ name: 'product_id' })
   productId: number;
 
-  @Column({ name: 'min_quantity', type: 'decimal', precision: 5, scale: 2 })
+  @Column({
+    name: 'min_quantity',
+    type: 'decimal',
+    precision: 5,
+    scale: 2,
+    default: 0,
+  })
   minQuantity: number;
 
   @Column({ name: 'max_quantity', type: 'decimal', precision: 5, scale: 2 })
@@ -28,7 +34,7 @@ export class WeeklyProduct {
   @Column({ name: 'price', type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ name: 'active' })
+  @Column({ name: 'active', default: true })
   active: boolean;
 
   @CreateDateColumn({
