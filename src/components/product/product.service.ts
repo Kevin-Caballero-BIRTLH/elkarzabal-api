@@ -52,7 +52,9 @@ export class ProductService {
     const userProducts = await this.productRepository
       .createQueryBuilder('p')
       .innerJoinAndSelect('p.user', 'pu')
+      .innerJoinAndSelect('p.weeklyProducts', 'pw')
       .where('pu.id = :userId', { userId })
+      .andWhere('pw.active = :active', { active: true })
       .getMany();
 
     return userProducts;

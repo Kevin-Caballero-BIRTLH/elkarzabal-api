@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -54,6 +55,7 @@ export class WeeklyProduct {
 
   //FOREIGN KEYS____________________________________________________________________________________
   @ManyToOne(() => Product)
+  @JoinColumn({ name: 'product_id' })
   product: Product;
 
   @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order)

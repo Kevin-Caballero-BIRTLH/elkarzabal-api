@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -45,6 +46,7 @@ export class Product {
 
   //FOREIGN KEYS____________________________________________________________________________________
   @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @OneToMany(() => WeeklyProduct, (weeklyProduct) => weeklyProduct.product)
