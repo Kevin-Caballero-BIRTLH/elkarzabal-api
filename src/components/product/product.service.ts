@@ -16,10 +16,14 @@ export class ProductService {
     return this.productRepository.save(createProductDto);
   }
 
-  findAll(user?: number) {
-    const findManyOptions: FindManyOptions = { where: { userId: user } };
-    if (user) delete findManyOptions.where;
-    return this.productRepository.find(findManyOptions);
+  async findAll() {
+    const userProducts = await this.productRepository
+      .createQueryBuilder('p')
+      .leftJoinAndSelect('p.weeklyProducts', 'pw')
+      .where('pw.active = :active', { active: true })
+      .getMany();
+
+    return userProducts;
   }
 
   findOne(findOneOptions: FindOneOptions) {
@@ -46,17 +50,5 @@ export class ProductService {
       await this.productRepository.delete(id);
       return `The product with the id #${id} was removed`;
     }
-  }
-
-  async findProductsByUserId(userId: number) {
-    const userProducts = await this.productRepository
-      .createQueryBuilder('p')
-      .innerJoinAndSelect('p.user', 'pu')
-      .innerJoinAndSelect('p.weeklyProducts', 'pw')
-      .where('pu.id = :userId', { userId })
-      .andWhere('pw.active = :active', { active: true })
-      .getMany();
-
-    return userProducts;
   }
 }

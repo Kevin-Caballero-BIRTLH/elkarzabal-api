@@ -26,8 +26,8 @@ export class ProductController {
   }
 
   @Get()
-  findAll(@Query('user', ParseIntPipe) user: number) {
-    return this.productService.findAll(user);
+  findAll() {
+    return this.productService.findAll();
   }
 
   @Get(':id')

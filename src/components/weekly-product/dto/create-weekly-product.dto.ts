@@ -14,8 +14,5 @@ export class CreateWeeklyProductDto {
   price: number;
 
   @IsOptional()
-  active?: boolean;
-
-  @IsOptional()
   minQuantity?: number;
 }

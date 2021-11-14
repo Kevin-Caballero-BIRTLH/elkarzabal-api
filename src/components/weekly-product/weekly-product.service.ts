@@ -8,7 +8,16 @@ import { WeeklyProductRepository } from './weekly-product.repository';
 export class WeeklyProductService {
   constructor(private weeklyProductRepository: WeeklyProductRepository) {}
 
-  create(createWeeklyProductDto: CreateWeeklyProductDto) {
+  async create(createWeeklyProductDto: CreateWeeklyProductDto) {
+    const lastWeeklyProduct = await this.weeklyProductRepository.findOne({
+      where: { productId: createWeeklyProductDto.productId, active: true },
+    });
+
+    if (lastWeeklyProduct?.id) {
+      lastWeeklyProduct.active = false;
+      await lastWeeklyProduct.save();
+    }
+
     return this.weeklyProductRepository.save(createWeeklyProductDto);
   }
 
