@@ -1,6 +1,7 @@
 import { User } from 'src/components/user/entities/user.entity';
 import { WeeklyProduct } from 'src/components/weekly-product/entities/weekly-product.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -12,7 +13,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Product {
+export class Product extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -59,6 +60,7 @@ export class Product {
     measurementUnit: string,
     description: string,
   ) {
+    super();
     this.name = name;
     this.userId = userId;
     this.measurementUnit = measurementUnit;

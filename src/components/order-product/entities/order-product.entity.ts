@@ -1,6 +1,7 @@
 import { Order } from 'src/components/order/entities/order.entity';
 import { WeeklyProduct } from 'src/components/weekly-product/entities/weekly-product.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -11,7 +12,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class OrderProduct {
+export class OrderProduct extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;

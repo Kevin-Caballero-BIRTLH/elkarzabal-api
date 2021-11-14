@@ -3,6 +3,7 @@ import { Order } from 'src/components/order/entities/order.entity';
 import { Product } from 'src/components/product/entities/product.entity';
 import { Role } from 'src/components/role/entities/role.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -14,7 +15,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -83,6 +84,7 @@ export class User {
     language: string,
     group?: string,
   ) {
+    super();
     this.name = name;
     this.lastname = lastname;
     this.phone = phone;
