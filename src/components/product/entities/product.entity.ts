@@ -49,4 +49,17 @@ export class Product {
 
   @OneToMany(() => WeeklyProduct, (weeklyProduct) => weeklyProduct.product)
   weeklyProducts: WeeklyProduct[];
+
+  //METHODS_________________________________________________________________________________________
+  constructor(
+    name: string,
+    userId: number,
+    measurementUnit: string,
+    description: string,
+  ) {
+    this.name = name;
+    this.userId = userId;
+    this.measurementUnit = measurementUnit;
+    this.description = description;
+  }
 }

@@ -33,6 +33,11 @@ docker-compose up
 
 #3- Seeding database (inside API container):
 npm run seed:run
+
+
+# Optional (inside API container)
+# if you need to restart the db run the following command:
+npm run schema:restart
 ```
 
 ## Stay in touch
