@@ -2,7 +2,7 @@ import {
     IsNotEmpty,
     IsString,
     IsNumber,
-    IsOptional, 
+    Length, 
     IsPostalCode,
 } from 'class-validator';
 
@@ -13,14 +13,17 @@ export class CreateAddressDto {
 
     @IsNotEmpty()
     @IsString()
+    @Length(50)
     state: string;
 
     @IsNotEmpty()
     @IsString()
+    @Length(50)
     city: string;
 
     @IsNotEmpty()
     @IsString()
+    @Length(100)
     street: string;
 
     @IsNotEmpty()
