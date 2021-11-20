@@ -18,8 +18,8 @@ export class UserService {
     return this.userRepository.save(createUserDto);
   }
 
-  findAll() {
-    return this.userRepository.find();
+  findAll(findManyOptions?: FindManyOptions) {
+    return this.userRepository.find(findManyOptions);
   }
 
   findOne(findOneOptions: FindOneOptions): Promise<User> {
@@ -27,10 +27,6 @@ export class UserService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.userRepository.update(id, updateUserDto);
   }
 }

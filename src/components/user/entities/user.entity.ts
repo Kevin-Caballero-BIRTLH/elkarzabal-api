@@ -44,6 +44,9 @@ export class User extends BaseEntity {
   @Column({ name: 'language', length: 3, default: 'ESP' })
   language: string;
 
+  @Column({ name: 'active', default: true })
+  active: boolean;
+
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
@@ -64,10 +67,10 @@ export class User extends BaseEntity {
   @JoinColumn({ name: 'role_id' })
   role: Role;
 
-  @OneToMany(() => Address, (address) => address.user)
+  @OneToMany(() => Address, (address) => address.user, { onDelete: 'CASCADE' })
   addresses: Address[];
 
-  @OneToMany(() => Product, (product) => product.user)
+  @OneToMany(() => Product, (product) => product.user, { onDelete: 'CASCADE' })
   products: Product[];
 
   @OneToMany(() => Order, (order) => order.user)
