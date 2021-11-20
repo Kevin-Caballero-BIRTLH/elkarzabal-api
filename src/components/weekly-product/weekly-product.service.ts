@@ -33,7 +33,7 @@ export class WeeklyProductService {
     const weeklyProductToUpdate = await this.weeklyProductRepository.findOne({
       where: { id: id },
     });
-    if (!weeklyProductToUpdate.id) return `There is no product with id #${id}`;
+    if (!weeklyProductToUpdate?.id) return `There is no product with id #${id}`;
     await this.weeklyProductRepository.update(id, updateWeeklyProductDto);
     return await this.weeklyProductRepository.findOne({ where: { id: id } });
   }
@@ -43,7 +43,7 @@ export class WeeklyProductService {
       where: { id: id },
     });
 
-    if (!weeklyProductToDelete.id) {
+    if (!weeklyProductToDelete?.id) {
       return `There is no weekly product with id #${id}`;
     } else {
       await this.weeklyProductRepository.delete(id);

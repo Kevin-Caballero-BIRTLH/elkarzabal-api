@@ -55,7 +55,7 @@ export class WeeklyProduct extends BaseEntity {
   updated_at: Date;
 
   //FOREIGN KEYS____________________________________________________________________________________
-  @ManyToOne(() => Product)
+  @ManyToOne(() => Product, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'product_id' })
   product: Product;
 

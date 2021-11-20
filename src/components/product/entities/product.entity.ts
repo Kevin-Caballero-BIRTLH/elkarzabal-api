@@ -50,7 +50,9 @@ export class Product extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany(() => WeeklyProduct, (weeklyProduct) => weeklyProduct.product)
+  @OneToMany(() => WeeklyProduct, (weeklyProduct) => weeklyProduct.product, {
+    onDelete: 'CASCADE',
+  })
   weeklyProducts: WeeklyProduct[];
 
   //METHODS_________________________________________________________________________________________
