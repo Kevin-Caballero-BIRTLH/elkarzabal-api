@@ -1,26 +1,50 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { FindOneOptions } from 'typeorm';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
+import { Address } from  './entities/address.entity';
+import { AddressRepository } from './address.repository';
 
 @Injectable()
 export class AddressService {
+  constructor(
+    private readonly addressRepository: AddressRepository,
+    private readonly configService: ConfigService,
+  ) {}
+
+
   create(createAddressDto: CreateAddressDto) {
-    return 'This action adds a new address';
+    return this.addressRepository.save(createAddressDto);
   }
 
   findAll() {
-    return `This action returns all address`;
+    return this.addressRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} address`;
+  findOne(findOneOptions: FindOneOptions): Promise<Address> {
+    return this.addressRepository.findOne(findOneOptions);
   }
 
-  update(id: number, updateAddressDto: UpdateAddressDto) {
-    return `This action updates a #${id} address`;
+  async update(id: number, updateAddressDto: UpdateAddressDto) {
+    const addressToUpdate = await this.addressRepository.findOne({
+      where: { id: id },
+    });
+    if (!addressToUpdate.id) return `There is no address with id #${id}`;
+    await this.addressRepository.update(id, updateAddressDto);
+    return this.addressRepository.findOne({ where: { id: id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} address`;
+  async remove(id: number) {
+    const addressToDelete = await this.addressRepository.findOne({
+      where: { id: id },
+    });
+
+    if (addressToDelete.id) {
+      await this.addressRepository.delete(id);
+      return `The address with the id #${id} was removed`;
+    } else {
+      return `There is no address with id #${id}`;
+    }
   }
 }
