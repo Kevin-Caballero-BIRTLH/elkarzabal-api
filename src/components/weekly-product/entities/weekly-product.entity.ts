@@ -1,9 +1,11 @@
 import { OrderProduct } from 'src/components/order-product/entities/order-product.entity';
 import { Product } from 'src/components/product/entities/product.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -11,7 +13,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class WeeklyProduct {
+export class WeeklyProduct extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -19,7 +21,13 @@ export class WeeklyProduct {
   @Column({ name: 'product_id' })
   productId: number;
 
-  @Column({ name: 'min_quantity', type: 'decimal', precision: 5, scale: 2 })
+  @Column({
+    name: 'min_quantity',
+    type: 'decimal',
+    precision: 5,
+    scale: 2,
+    default: 0,
+  })
   minQuantity: number;
 
   @Column({ name: 'max_quantity', type: 'decimal', precision: 5, scale: 2 })
@@ -28,7 +36,7 @@ export class WeeklyProduct {
   @Column({ name: 'price', type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ name: 'active' })
+  @Column({ name: 'active', default: true })
   active: boolean;
 
   @CreateDateColumn({
@@ -47,7 +55,8 @@ export class WeeklyProduct {
   updated_at: Date;
 
   //FOREIGN KEYS____________________________________________________________________________________
-  @ManyToOne(() => Product)
+  @ManyToOne(() => Product, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'product_id' })
   product: Product;
 
   @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order)

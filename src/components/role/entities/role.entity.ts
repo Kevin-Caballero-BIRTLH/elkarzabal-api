@@ -1,8 +1,14 @@
 import { User } from 'src/components/user/entities/user.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Role {
+export class Role extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -16,6 +22,7 @@ export class Role {
 
   //METHODS_________________________________________________________________________________________
   constructor(role: string) {
+    super();
     this.name = role;
   }
 }

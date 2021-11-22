@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -38,8 +39,10 @@ export class Order {
 
   //FOREIGN KEYS____________________________________________________________________________________
   @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @ManyToOne(() => OrderStatus)
+  @JoinColumn({ name: 'status_id' })
   orderStatus: OrderStatus;
 }

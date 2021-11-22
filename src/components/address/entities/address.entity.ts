@@ -1,8 +1,15 @@
 import { User } from 'src/components/user/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Address {
+export class Address extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -24,5 +31,6 @@ export class Address {
 
   //FOREIGN KEYS____________________________________________________________________________________
   @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 }

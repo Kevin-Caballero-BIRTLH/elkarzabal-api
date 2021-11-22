@@ -3,7 +3,6 @@ import {
   IsEnum,
   IsNotEmpty,
   IsOptional,
-  IsPhoneNumber,
   IsString,
   Length,
 } from 'class-validator';
@@ -39,7 +38,7 @@ export class CreateUserDto {
       Object.keys(ERole).length / 2
     }. Possible roles are: ${Object.keys(ERole)
       .filter((role, i) => i >= Object.keys(ERole).length / 2)
-      .map((roleName, i) => `(${ERole[roleName]} - ${roleName})`)
+      .map((roleName) => `(${ERole[roleName]} - ${roleName})`)
       .join(', ')}`,
   })
   roleId: ERole;
@@ -49,4 +48,7 @@ export class CreateUserDto {
 
   @IsOptional()
   language?: string;
+
+  @IsOptional()
+  active?: boolean;
 }

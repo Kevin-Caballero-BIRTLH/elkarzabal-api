@@ -1,9 +1,11 @@
 import { User } from 'src/components/user/entities/user.entity';
 import { WeeklyProduct } from 'src/components/weekly-product/entities/weekly-product.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -11,7 +13,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Product {
+export class Product extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
@@ -45,9 +47,12 @@ export class Product {
 
   //FOREIGN KEYS____________________________________________________________________________________
   @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany(() => WeeklyProduct, (weeklyProduct) => weeklyProduct.product)
+  @OneToMany(() => WeeklyProduct, (weeklyProduct) => weeklyProduct.product, {
+    onDelete: 'CASCADE',
+  })
   weeklyProducts: WeeklyProduct[];
 
   //METHODS_________________________________________________________________________________________
@@ -57,6 +62,7 @@ export class Product {
     measurementUnit: string,
     description: string,
   ) {
+    super();
     this.name = name;
     this.userId = userId;
     this.measurementUnit = measurementUnit;
