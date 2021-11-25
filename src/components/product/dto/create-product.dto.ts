@@ -11,7 +11,7 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   @IsString()
-  @Length(10)
+  @Length(2, 10)
   measurementUnit: string;
 
   @IsNotEmpty()
