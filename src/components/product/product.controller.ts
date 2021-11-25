@@ -7,19 +7,19 @@ import {
   Param,
   Delete,
   Request,
-  Query,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { query } from 'express';
+import { Roles } from 'src/decorators/role.decorator';
+import { ERole } from '../role/entities/erole';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
+  @Roles(ERole.CUSTOMER)
   create(@Request() req, @Body() createProductDto: CreateProductDto) {
     createProductDto.userId = req.user.id;
     return this.productService.create(createProductDto);
