@@ -19,7 +19,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  @Roles(ERole.CUSTOMER)
+  @Roles(ERole.VENDOR)
   create(@Request() req, @Body() createProductDto: CreateProductDto) {
     createProductDto.userId = req.user.id;
     return this.productService.create(createProductDto);
@@ -36,10 +36,12 @@ export class ProductController {
   }
 
   @Patch(':id')
+  @Roles(ERole.VENDOR)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(+id, updateProductDto);
   }
 
+  @Roles(ERole.VENDOR)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productService.remove(+id);
