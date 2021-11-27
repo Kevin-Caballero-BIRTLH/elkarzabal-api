@@ -36,4 +36,10 @@ export class UserController {
   remove(@Request() req) {
     return this.userService.update(req.user.id, { active: false });
   }
+
+  @Patch('reactivate/:id')
+  @Roles(ERole.ADMIN)
+  reactivate(@Param('id') id: string) {
+    return this.userService.update(+id, { active: true });
+  }
 }
