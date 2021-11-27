@@ -11,6 +11,8 @@ import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from 'src/decorators/role.decorator';
 import { ERole } from '../role/entities/erole';
+import { User } from './entities/user.entity';
+import { FindOneOptions } from 'typeorm';
 
 @Controller('user')
 export class UserController {
@@ -24,7 +26,22 @@ export class UserController {
 
   @Get('profile')
   findOne(@Request() req) {
-    return this.userService.findOne({ where: { id: req.user.id } });
+    const user: User = req.user;
+    const queryOptions: FindOneOptions = {
+      where: { id: req.user.id },
+      relations: ['role'],
+    };
+    switch (user.roleId) {
+      case ERole.CUSTOMER:
+        queryOptions.relations.push('orders', 'addresses');
+      case ERole.VENDOR:
+        queryOptions.relations.push('products', 'addresses');
+        break;
+      case ERole.ADMIN:
+        queryOptions.relations.push('addresses');
+        break;
+    }
+    return this.userService.findOne(queryOptions);
   }
 
   @Patch('update')
