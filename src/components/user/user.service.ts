@@ -26,7 +26,8 @@ export class UserService {
     return this.userRepository.findOne(findOneOptions);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(id, updateUserDto);
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    this.userRepository.update(id, updateUserDto);
+    return this.userRepository.findOne({ where: { id: id } });
   }
 }
