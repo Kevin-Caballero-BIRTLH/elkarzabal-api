@@ -36,3 +36,9 @@ lerna-debug.log*
 
 # Enviroment
 *.env
+
+#Files
+/files/*.jpg
+/files/*.jpeg
+/files/*.png
+/files/*.gif

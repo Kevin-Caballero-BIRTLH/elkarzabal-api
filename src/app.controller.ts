@@ -7,6 +7,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
+import { join } from 'path';
 import { AppService } from './app.service';
 import { AuthService } from './components/auth/auth.service';
 import { JwtAuthGuard } from './components/auth/jwt-auth.guard';
@@ -28,7 +29,7 @@ export class AppController {
   @Public()
   @Get()
   getHello(): string {
-    return this._appService.getHello();
+    return join(__dirname, '..', 'files');
   }
 
   @Public()

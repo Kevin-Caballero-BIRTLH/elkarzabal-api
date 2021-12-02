@@ -6,9 +6,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { UserModule } from './components/user/user.module';
 import { version, description } from '../package.json';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
 
   app.setGlobalPrefix('api');
@@ -20,6 +22,10 @@ async function bootstrap() {
       skipMissingProperties: true,
     }),
   );
+
+  app.useStaticAssets(join(__dirname, '..', '..', 'files'), {
+    prefix: '/files/',
+  });
 
   //#region Swagger config
   const swaggerConfig = new DocumentBuilder()

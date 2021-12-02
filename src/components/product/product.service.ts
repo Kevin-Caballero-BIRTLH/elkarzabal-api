@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { FindManyOptions, FindOneOptions } from 'typeorm';
+import { FindOneOptions } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductRepository } from './product.repository';
@@ -12,22 +12,33 @@ export class ProductService {
     private readonly configService: ConfigService,
   ) {}
 
-  create(createProductDto: CreateProductDto) {
-    return this.productRepository.save(createProductDto);
+  async create(createProductDto: CreateProductDto, paths: string) {
+    const product = await this.productRepository.save({
+      ...createProductDto,
+      images: paths,
+    });
+
+    return { ...product, images: JSON.parse(product.images) };
   }
 
   async findAll() {
-    const userProducts = await this.productRepository
-      .createQueryBuilder('p')
-      .leftJoinAndSelect('p.weeklyProducts', 'pw')
-      .where('pw.active = :active', { active: true })
-      .getMany();
-
-    return userProducts;
+    const products = await this.productRepository.findAllActives();
+    return products.map((p) => ({ ...p, images: JSON.parse(p.images) }));
   }
 
-  findOne(findOneOptions: FindOneOptions) {
-    return this.productRepository.findOne(findOneOptions);
+  async findAllBaseProduct() {
+    const products = await this.productRepository.find();
+    return products.map((p) => ({ ...p, images: JSON.parse(p.images) }));
+  }
+
+  async findAllMyProducts(userId: number) {
+    const products = await this.productRepository.findAllMyProducts(userId);
+    return products.map((p) => ({ ...p, images: JSON.parse(p.images) }));
+  }
+
+  async findOne(findOneOptions: FindOneOptions) {
+    const product = await this.productRepository.findOne(findOneOptions);
+    return { ...product, images: JSON.parse(product.images) };
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {

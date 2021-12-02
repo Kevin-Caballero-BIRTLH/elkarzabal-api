@@ -29,27 +29,25 @@ export class UserController {
     const user: User = req.user;
     const queryOptions: FindOneOptions = {
       where: { id: req.user.id },
-      relations: ['role'],
+      relations: ['role', 'addresses'],
     };
     switch (user.roleId) {
       case ERole.CUSTOMER:
-        queryOptions.relations.push('orders', 'addresses');
-      case ERole.VENDOR:
-        queryOptions.relations.push('products', 'addresses');
+        queryOptions.relations.push('orders');
         break;
-      case ERole.ADMIN:
-        queryOptions.relations.push('addresses');
+      case ERole.VENDOR:
+        queryOptions.relations.push('products');
         break;
     }
     return this.userService.findOne(queryOptions);
   }
 
-  @Patch('update')
+  @Patch()
   update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(req.user.id, updateUserDto);
   }
 
-  @Delete('inactivate')
+  @Delete()
   remove(@Request() req) {
     return this.userService.update(req.user.id, { active: false });
   }

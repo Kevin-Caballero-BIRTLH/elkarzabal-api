@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { FindOneOptions } from 'typeorm';
 import { CreateWeeklyProductDto } from './dto/create-weekly-product.dto';
 import { UpdateWeeklyProductDto } from './dto/update-weekly-product.dto';
@@ -33,7 +33,8 @@ export class WeeklyProductService {
     const weeklyProductToUpdate = await this.weeklyProductRepository.findOne({
       where: { id: id },
     });
-    if (!weeklyProductToUpdate?.id) return `There is no product with id #${id}`;
+    if (!weeklyProductToUpdate?.id)
+      throw new BadRequestException(`There is no product with id #${id}`);
     await this.weeklyProductRepository.update(id, updateWeeklyProductDto);
     return await this.weeklyProductRepository.findOne({ where: { id: id } });
   }
@@ -44,7 +45,9 @@ export class WeeklyProductService {
     });
 
     if (!weeklyProductToDelete?.id) {
-      return `There is no weekly product with id #${id}`;
+      throw new BadRequestException(
+        `There is no weekly product with id #${id}`,
+      );
     } else {
       await this.weeklyProductRepository.delete(id);
       return `The weekly product with the id #${id} was removed`;
