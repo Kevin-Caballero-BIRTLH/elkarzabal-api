@@ -31,6 +31,9 @@ export class Product extends BaseEntity {
   @Column({ name: 'description', type: 'text' })
   description: string;
 
+  @Column({ name: 'images', type: 'text', nullable: true })
+  images: string;
+
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
