@@ -17,8 +17,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './components/auth/jwt-auth.guard';
 import { RolesGuard } from './components/auth/role.guard';
 import { MulterModule } from '@nestjs/platform-express';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { ProductImageModule } from './components/product-image/product-image.module';
 
 @Module({
   imports: [
@@ -45,10 +44,6 @@ import { join } from 'path';
         dest: './files',
       }),
     }),
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '..', '..', 'files'),
-    //   renderPath: 'static',
-    // }),
     UserModule,
     RoleModule,
     AddressModule,
@@ -58,6 +53,7 @@ import { join } from 'path';
     WeeklyProductModule,
     OrderProductModule,
     AuthModule,
+    ProductImageModule,
   ],
   controllers: [AppController],
   providers: [
