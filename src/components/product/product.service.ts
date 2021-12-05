@@ -82,11 +82,12 @@ export class ProductService {
     await this.productRepository.update(id, updateProductDto);
     const updatedProduct = await this.productRepository.findOne({
       where: { id: id },
+      relations: ['images'],
     });
 
     return {
       ...updatedProduct,
-      images: updatedProduct.images.map((pi) => ({
+      images: updatedProduct.images?.map((pi) => ({
         ...pi,
         filename: this.getUrlFromFilename(pi.filename),
       })),

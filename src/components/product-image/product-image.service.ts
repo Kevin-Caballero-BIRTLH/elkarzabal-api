@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProductImageDto } from './dto/create-product-image.dto';
-import { UpdateProductImageDto } from './dto/update-product-image.dto';
 import * as fs from 'fs';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'src/config/config';
