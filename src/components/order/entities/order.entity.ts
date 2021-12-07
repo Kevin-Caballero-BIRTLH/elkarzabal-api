@@ -1,6 +1,7 @@
 import { OrderStatus } from 'src/components/order-status/entities/order-status.entity';
 import { User } from 'src/components/user/entities/user.entity';
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -11,7 +12,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Order {
+export class Order extends BaseEntity {
   //PROPERTIES______________________________________________________________________________________
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;

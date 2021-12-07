@@ -12,12 +12,12 @@ import { OrderModule } from './components/order/order.module';
 import { OrderStatusModule } from './components/order-status/order-status.module';
 import { WeeklyProductModule } from './components/weekly-product/weekly-product.module';
 import { OrderProductModule } from './components/order-product/order-product.module';
-import { AuthService } from './components/auth/auth.service';
 import { AuthModule } from './components/auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './components/auth/jwt-auth.guard';
 import { RolesGuard } from './components/auth/role.guard';
+import { MulterModule } from '@nestjs/platform-express';
+import { ProductImageModule } from './components/product-image/product-image.module';
 
 @Module({
   imports: [
@@ -39,6 +39,11 @@ import { RolesGuard } from './components/auth/role.guard';
       envFilePath: `.${process.env.NODE_ENV}.env`,
       isGlobal: true,
     }),
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: './files',
+      }),
+    }),
     UserModule,
     RoleModule,
     AddressModule,
@@ -48,6 +53,7 @@ import { RolesGuard } from './components/auth/role.guard';
     WeeklyProductModule,
     OrderProductModule,
     AuthModule,
+    ProductImageModule,
   ],
   controllers: [AppController],
   providers: [

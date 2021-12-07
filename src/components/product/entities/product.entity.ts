@@ -1,3 +1,4 @@
+import { ProductImage } from 'src/components/product-image/entities/product-image.entity';
 import { User } from 'src/components/user/entities/user.entity';
 import { WeeklyProduct } from 'src/components/weekly-product/entities/weekly-product.entity';
 import {
@@ -54,6 +55,11 @@ export class Product extends BaseEntity {
     onDelete: 'CASCADE',
   })
   weeklyProducts: WeeklyProduct[];
+
+  @OneToMany(() => ProductImage, (productImages) => productImages.product, {
+    onDelete: 'CASCADE',
+  })
+  images: ProductImage[];
 
   //METHODS_________________________________________________________________________________________
   constructor(

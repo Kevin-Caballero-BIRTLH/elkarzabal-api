@@ -2,6 +2,8 @@ export const config = {
   api: {
     host: 'API_HOST',
     port: 'API_PORT',
+    protocol: 'API_PROTOCOL',
+    api_static_folder: 'API_STATIC_FOLDER',
   },
   database: {
     host: 'DATABASE_HOST',
