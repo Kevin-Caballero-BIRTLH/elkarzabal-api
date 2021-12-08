@@ -1,14 +1,25 @@
 import { ApiResponseOptions } from '@nestjs/swagger';
 
-export namespace Response {
-  export const loginOkResponses: ApiResponseOptions = {
+export namespace OpenApiResponse {
+  export const loginOk: ApiResponseOptions = {
     status: 200,
     description:
-      'if user is registered and account activated return self user + token',
+      'If user is registered and account activated returns user + token',
   };
-  export const loginUnauthorizedResponses: ApiResponseOptions = {
+
+  export const registerOk: ApiResponseOptions = {
+    status: 201,
+    description: 'User created successfully',
+  };
+
+  export const loginUnauthorized: ApiResponseOptions = {
     status: 401,
     description:
-      'if user is not registered or account is not activated return unauthorized',
+      'If user is not registered or account is not activated returns unauthorized',
+  };
+
+  export const registerBadRequest: ApiResponseOptions = {
+    status: 400,
+    description: 'Not fulfilling createUserDTO',
   };
 }

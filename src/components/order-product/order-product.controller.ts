@@ -10,7 +10,9 @@ import {
 import { OrderProductService } from './order-product.service';
 import { CreateOrderProductDto } from './dto/create-order-product.dto';
 import { UpdateOrderProductDto } from './dto/update-order-product.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('ORDER')
 @Controller('order-product')
 export class OrderProductController {
   constructor(private readonly orderProductService: OrderProductService) {}

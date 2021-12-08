@@ -8,6 +8,9 @@ import { version, description } from '../package.json';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import { OrderModule } from './components/order/order.module';
+import { ProductModule } from './components/product/product.module';
+import { OrderProductModule } from './components/order-product/order-product.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -19,7 +22,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
-      skipMissingProperties: true,
+      skipMissingProperties: false,
     }),
   );
 
@@ -41,12 +44,18 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig, {
-    include: [UserModule, AppModule],
+    include: [
+      UserModule,
+      AppModule,
+      OrderModule,
+      OrderProductModule,
+      ProductModule,
+    ],
     ignoreGlobalPrefix: false,
   });
 
   SwaggerModule.setup('doc', app, document, {
-    swaggerOptions: { defaultModelsExpandDepth: -1 },
+    swaggerOptions: { filter: true, defaultModelsExpandDepth: -1 },
   });
   //#endregion
 

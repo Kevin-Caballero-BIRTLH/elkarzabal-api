@@ -13,7 +13,9 @@ import { Roles } from 'src/decorators/role.decorator';
 import { ERole } from '../role/entities/erole';
 import { User } from './entities/user.entity';
 import { FindOneOptions } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('USER')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}

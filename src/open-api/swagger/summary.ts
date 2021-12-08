@@ -1,3 +1,4 @@
 export namespace OpenApiSummary {
-  export const loginSummary = 'Do login and get a valid token';
+  export const login = 'Get a valid token';
+  export const register = 'Create a new user';
 }
