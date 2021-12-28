@@ -18,7 +18,10 @@ export class WeeklyProductService {
       await lastWeeklyProduct.save();
     }
 
-    return this.weeklyProductRepository.save(createWeeklyProductDto);
+    return this.weeklyProductRepository.save({
+      ...createWeeklyProductDto,
+      currentQuantity: createWeeklyProductDto.maxQuantity,
+    });
   }
 
   findAll() {
@@ -52,5 +55,16 @@ export class WeeklyProductService {
       await this.weeklyProductRepository.delete(id);
       return `The weekly product with the id #${id} was removed`;
     }
+  }
+
+  async existsStockToBuy(
+    productId: number,
+    quantity: number,
+  ): Promise<boolean> {
+    const weeklyProduct = await this.weeklyProductRepository.findOne({
+      where: { id: productId },
+    });
+
+    return quantity <= weeklyProduct.currentQuantity;
   }
 }

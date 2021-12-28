@@ -23,8 +23,8 @@ export class AppController {
   @Post('login')
   @UseGuards(LocalAuthGuard)
   @ApiBody(OpenApiBody.loginBody)
-  @ApiResponse(OpenApiResponse.loginOk)
-  @ApiResponse(OpenApiResponse.loginUnauthorized)
+  @ApiResponse(OpenApiResponse.APPloginOk)
+  @ApiResponse(OpenApiResponse.APPloginUnauthorized)
   @ApiOperation({ summary: OpenApiSummary.login })
   login(@Req() req) {
     return this._authService.login(req.user);
@@ -32,8 +32,8 @@ export class AppController {
 
   @Public()
   @Post('register')
-  @ApiResponse(OpenApiResponse.registerOk)
-  @ApiResponse(OpenApiResponse.registerBadRequest)
+  @ApiResponse(OpenApiResponse.APPregisterOk)
+  @ApiResponse(OpenApiResponse.APPregisterBadRequest)
   @ApiOperation({ summary: OpenApiSummary.register })
   register(@Body() createUserDto: CreateUserDto) {
     return this._userService.create(createUserDto);

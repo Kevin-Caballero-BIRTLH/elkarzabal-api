@@ -33,6 +33,9 @@ export class WeeklyProduct extends BaseEntity {
   @Column({ name: 'max_quantity', type: 'decimal', precision: 5, scale: 2 })
   maxQuantity: number;
 
+  @Column({ name: 'current_quantity' })
+  currentQuantity: number;
+
   @Column({ name: 'price', type: 'decimal', precision: 10, scale: 2 })
   price: number;
 

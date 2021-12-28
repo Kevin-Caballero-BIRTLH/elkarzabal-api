@@ -17,11 +17,6 @@ import { ApiTags } from '@nestjs/swagger';
 export class OrderProductController {
   constructor(private readonly orderProductService: OrderProductService) {}
 
-  @Post()
-  create(@Body() createOrderProductDto: CreateOrderProductDto) {
-    return this.orderProductService.create(createOrderProductDto);
-  }
-
   @Get()
   findAll() {
     return this.orderProductService.findAll();
