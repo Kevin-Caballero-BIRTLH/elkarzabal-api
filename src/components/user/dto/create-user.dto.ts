@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsEnum,
@@ -9,29 +10,34 @@ import {
 import { ERole } from 'src/components/role/entities/erole';
 
 export class CreateUserDto {
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   name: string;
 
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   lastname: string;
 
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   @Length(9, 9)
   phone: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
   @IsString()
   @IsEmail()
   email: string;
 
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   // @Length(40) //uncomment when SHA1 is enabled
   password: string;
 
+  @ApiProperty({ enum: ERole })
   @IsNotEmpty()
   @IsEnum(ERole, {
     message: `Value must be between 1 and ${
@@ -43,12 +49,16 @@ export class CreateUserDto {
   })
   roleId: ERole;
 
+  @ApiProperty({ required: false })
   @IsOptional()
   group?: string;
 
+  @ApiProperty({ required: false })
+  @Length(3, 3)
   @IsOptional()
   language?: string;
 
+  @ApiProperty({ required: false, default: true })
   @IsOptional()
   active?: boolean;
 }

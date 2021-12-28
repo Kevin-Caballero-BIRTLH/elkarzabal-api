@@ -17,7 +17,9 @@ import { Roles } from 'src/decorators/role.decorator';
 import { ERole } from '../role/entities/erole';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('PRODUCT')
 @Controller('product')
 export class ProductController {
   constructor(

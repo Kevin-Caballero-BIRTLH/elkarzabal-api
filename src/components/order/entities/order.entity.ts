@@ -1,3 +1,5 @@
+import { OrderProduct } from 'src/components/order-product/entities/order-product.entity';
+import { EOrderStatus } from 'src/components/order-status/entities/eorder-status';
 import { OrderStatus } from 'src/components/order-status/entities/order-status.entity';
 import { User } from 'src/components/user/entities/user.entity';
 import {
@@ -7,6 +9,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -20,7 +23,7 @@ export class Order extends BaseEntity {
   @Column({ name: 'user_id' })
   userId: number;
 
-  @Column({ name: 'status_id' })
+  @Column({ name: 'status_id', default: EOrderStatus.PENDING })
   statusId: number;
 
   @CreateDateColumn({
@@ -46,4 +49,9 @@ export class Order extends BaseEntity {
   @ManyToOne(() => OrderStatus)
   @JoinColumn({ name: 'status_id' })
   orderStatus: OrderStatus;
+
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order, {
+    onDelete: 'CASCADE',
+  })
+  orderProducts: OrderProduct[];
 }

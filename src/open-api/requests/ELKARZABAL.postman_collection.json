@@ -458,7 +458,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyQGN1c3RvbWVyLmNvbSIsInN1YiI6MywiaWF0IjoxNjM3NTI5MjU1LCJleHAiOjE2Mzc2MTU2NTV9.BL2KYjlobtiLc-rfmX0dXjQhfy_9rKbTN--vbqsspzI",
+									"value": "{{vendor-token}}",
 									"type": "string"
 								}
 							]
@@ -494,7 +494,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": 2,\r\n    \"maxQuantity\": 103,\r\n    \"price\": 1\r\n}",
+							"raw": "{\r\n    \"productId\": 1,\r\n    \"maxQuantity\": 100,\r\n    \"price\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -777,7 +777,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyQGN1c3RvbWVyLmNvbSIsInN1YiI6MywiaWF0IjoxNjM3Nzc5MzE4LCJleHAiOjE2Mzc4NjU3MTh9.wsh6_sU7pGi7Sr6eyilEekG7wLlLgZ5zple8rMZoGvs",
+									"value": "{{vendor-token}}",
 									"type": "string"
 								}
 							]
@@ -786,7 +786,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orderProducts\": [\r\n        {\r\n            \"weeklyProductId\": 1,\r\n            \"quantity\": 20\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"orderProducts\": [\r\n        {\r\n            \"weeklyProductId\": 1,\r\n            \"quantity\": 99\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -802,6 +802,15 @@
 								"order"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "get order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
@@ -835,7 +844,7 @@
 		},
 		{
 			"key": "vendor-token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2Mzg2OTcwNDYsImV4cCI6MTYzODc4MzQ0Nn0.msJ5f9MpqV1J173IS65A0QXWmcru5uDHEK7_AMR1TnU"
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2NDA2MDAyNDQsImV4cCI6MTY0MDY4NjY0NH0.ts31Kvdr5SnV4XHl70NBaA3F53nx5dprk8ceIWQCbR0"
 		}
 	]
 }
