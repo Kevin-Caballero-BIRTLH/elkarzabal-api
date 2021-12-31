@@ -7,6 +7,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import { OrderRepository } from './order.repository';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class OrderService {
@@ -15,6 +16,7 @@ export class OrderService {
     private _orderRepository: OrderRepository,
     private _weeklyProductService: WeeklyProductService,
     private _orderProductService: OrderProductService,
+    private _mailerService: MailerService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -47,6 +49,15 @@ export class OrderService {
       }
 
       await queryRunner.commitTransaction();
+
+      const detailedOrder = await this._orderRepository.findDetailedOrderById(
+        savedOrder.id,
+      );
+
+      //TODO build a better mail
+      this.sendOrderMail(detailedOrder);
+
+      //TODO start cron process
     } catch (error) {
       await queryRunner.rollbackTransaction();
       console.error(error);
@@ -73,5 +84,32 @@ export class OrderService {
 
   remove(id: number) {
     return `This action removes a #${id} order`;
+  }
+
+  private sendOrderMail(detailedOrder: Order) {
+    const orderTotal = detailedOrder.orderProducts.reduce(
+      (total, orderProduct) =>
+        total + orderProduct.quantity * orderProduct.weeklyProduct.price,
+      0,
+    );
+
+    this._mailerService
+      .sendMail({
+        to: 'test@nestjs.com',
+        from: 'noreply@nestjs.com',
+        subject: 'Testing Nest Mailermodule with template ✔',
+        template: './src/templates/order-mail.hbs',
+        context: {
+          user: detailedOrder.user,
+          orderProducts: detailedOrder.orderProducts,
+          total: orderTotal,
+        },
+      })
+      .then(() => {
+        console.log('mail sent');
+      })
+      .catch((e) => {
+        console.log('mail not sent', e);
+      });
   }
 }
