@@ -19,8 +19,4 @@ export class CreateOrderDto {
   @ValidateNested({ each: true })
   @Type(() => CreateOrderProductDto)
   orderProducts: CreateOrderProductDto[];
-
-  @IsOptional()
-  @IsNumber()
-  statusId: EOrderStatus;
 }
