@@ -20,6 +20,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ProductImageModule } from './components/product-image/product-image.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
         adapter: new HandlebarsAdapter(),
       },
     }),
+    ScheduleModule.forRoot(),
     UserModule,
     RoleModule,
     AddressModule,
