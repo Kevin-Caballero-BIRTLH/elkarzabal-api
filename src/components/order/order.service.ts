@@ -7,6 +7,9 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import { OrderRepository } from './order.repository';
+import { MailerService } from '@nestjs-modules/mailer';
+import { SchedulerRegistry } from '@nestjs/schedule';
+import { EOrderStatus } from '../order-status/entities/eorder-status';
 
 @Injectable()
 export class OrderService {
@@ -15,6 +18,8 @@ export class OrderService {
     private _orderRepository: OrderRepository,
     private _weeklyProductService: WeeklyProductService,
     private _orderProductService: OrderProductService,
+    private _mailerService: MailerService,
+    private _schedulerRegistry: SchedulerRegistry,
   ) {}
 
   async create(createOrderDto: CreateOrderDto) {
@@ -47,6 +52,13 @@ export class OrderService {
       }
 
       await queryRunner.commitTransaction();
+
+      const detailedOrder = await this._orderRepository.findDetailedOrderById(
+        savedOrder.id,
+      );
+
+      this.sendOrderMail(detailedOrder);
+      this.cancelOrderTimeout(savedOrder.id);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       console.error(error);
@@ -68,10 +80,64 @@ export class OrderService {
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+    return this._orderRepository.update(id, updateOrderDto);
   }
 
   remove(id: number) {
     return `This action removes a #${id} order`;
+  }
+
+  //an hour of margin to accept the order
+  cancelOrderTimeout(orderId: number, milliseconds: number = 1000 * 60 * 60) {
+    const callback = async () => {
+      //get order by id
+      const order = await this._orderRepository.findDetailedOrderById(orderId);
+
+      if (order.statusId === EOrderStatus.ACCEPTED) {
+        return;
+      } else {
+        //change order status
+        this.update(orderId, {
+          statusId: EOrderStatus.CANCELLED,
+        });
+
+        //refill products quantity
+        order.orderProducts.forEach((op) => {
+          this._weeklyProductService.update(op.weeklyProductId, {
+            currentQuantity: op.weeklyProduct.currentQuantity + op.quantity,
+          });
+        });
+      }
+    };
+
+    const timeout = setTimeout(callback, milliseconds);
+    this._schedulerRegistry.addTimeout(`order${orderId}`, timeout);
+  }
+
+  private sendOrderMail(detailedOrder: Order) {
+    const orderTotal = detailedOrder.orderProducts.reduce(
+      (total, orderProduct) =>
+        total + orderProduct.quantity * orderProduct.weeklyProduct.price,
+      0,
+    );
+
+    this._mailerService
+      .sendMail({
+        to: 'test@nestjs.com',
+        from: 'noreply@nestjs.com',
+        subject: 'Testing Nest Mailermodule with template ✔',
+        template: './src/templates/order-mail.hbs',
+        context: {
+          user: detailedOrder.user,
+          orderProducts: detailedOrder.orderProducts,
+          total: orderTotal,
+        },
+      })
+      .then(() => {
+        console.log('mail sent');
+      })
+      .catch((e) => {
+        console.log('mail not sent', e);
+      });
   }
 }

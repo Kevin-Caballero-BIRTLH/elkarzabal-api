@@ -18,6 +18,9 @@ import { JwtAuthGuard } from './components/auth/jwt-auth.guard';
 import { RolesGuard } from './components/auth/role.guard';
 import { MulterModule } from '@nestjs/platform-express';
 import { ProductImageModule } from './components/product-image/product-image.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -44,6 +47,20 @@ import { ProductImageModule } from './components/product-image/product-image.mod
         dest: './files',
       }),
     }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'mailcatcher',
+        port: 1025,
+      },
+      defaults: {
+        from: '"Nuevo pedido realizado" <sales@elkarzabal.com>',
+      },
+      template: {
+        dir: __dirname + '/templates',
+        adapter: new HandlebarsAdapter(),
+      },
+    }),
+    ScheduleModule.forRoot(),
     UserModule,
     RoleModule,
     AddressModule,

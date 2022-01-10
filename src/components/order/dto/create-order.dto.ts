@@ -7,6 +7,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { CreateOrderProductDto } from 'src/components/order-product/dto/create-order-product.dto';
+import { EOrderStatus } from 'src/components/order-status/entities/eorder-status';
 
 export class CreateOrderDto {
   @IsOptional()
