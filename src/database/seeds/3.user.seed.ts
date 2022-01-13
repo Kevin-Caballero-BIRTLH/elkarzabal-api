@@ -18,6 +18,7 @@ export default class CreateUsers implements Seeder {
           'admin',
           ERole.ADMIN,
           'ESP',
+          'calle ejemplo 123',
         ),
         new User(
           'VENDOR',
@@ -27,6 +28,7 @@ export default class CreateUsers implements Seeder {
           'vendor',
           ERole.VENDOR,
           'ESP',
+          'calle ejemplo 123',
         ),
         new User(
           'CUSTOMER',
@@ -36,6 +38,7 @@ export default class CreateUsers implements Seeder {
           'customer',
           ERole.CUSTOMER,
           'EUS',
+          'calle ejemplo 123',
         ),
       ])
       .execute();

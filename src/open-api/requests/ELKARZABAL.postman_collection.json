@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"vendor@vendor.com\",\r\n    \"password\": \"vendor\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,11 +64,21 @@
 				{
 					"name": "register",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMDk1NzcwLCJleHAiOjE2NDIxODIxNzB9.oDf_ZRrGmSR9VWAl4_CJ-VvMTudwBnx4CRSfv15xYCg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"TEST\",\r\n    \"lastname\": \"TEST\",\r\n    \"phone\": \"644444444\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test\",\r\n    \"roleId\": 3\r\n}",
+							"raw": "{\r\n    \"name\": \"TEST\",\r\n    \"lastname\": \"TEST\",\r\n    \"phone\": \"644444444\",\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"test\",\r\n    \"roleId\": 3,\r\n    \"address\": \"calle del fondo N20 escalera drcha 4B\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -218,7 +228,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2Mzg2NDUyOTIsImV4cCI6MTYzODczMTY5Mn0.MO9G-iLmY59xNfy9OWvpk7DzEOY_NOUC-S-5BcXkTlQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2NDIwMjE3NTEsImV4cCI6MTY0MjEwODE1MX0.9GI_1iG995-7smy6m5s56MhTcftCXDlHAcyUaM8h9Lg",
 									"type": "string"
 								}
 							]
@@ -494,7 +504,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": 1,\r\n    \"maxQuantity\": 100,\r\n    \"price\": 1\r\n}",
+							"raw": "{\r\n    \"productId\": 2,\r\n    \"maxQuantity\": 100,\r\n    \"price\": 7.5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -634,6 +644,42 @@
 								"user",
 								"reactivate",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modify user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMDk1NzcwLCJleHAiOjE2NDIxODIxNzB9.oDf_ZRrGmSR9VWAl4_CJ-VvMTudwBnx4CRSfv15xYCg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"enrique\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user"
 							]
 						}
 					},
@@ -786,7 +832,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orderProducts\": [\r\n        {\r\n            \"weeklyProductId\": 1,\r\n            \"quantity\": 99\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"orderProducts\": [\r\n        {\r\n            \"weeklyProductId\": 1,\r\n            \"quantity\": 53\r\n        },\r\n        {\r\n            \"weeklyProductId\": 2,\r\n            \"quantity\": 25\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -808,9 +854,28 @@
 				{
 					"name": "get order",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{vendor-token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "{{baseUrl}}/order/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"order",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
@@ -844,7 +909,7 @@
 		},
 		{
 			"key": "vendor-token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2NDA2MDAyNDQsImV4cCI6MTY0MDY4NjY0NH0.ts31Kvdr5SnV4XHl70NBaA3F53nx5dprk8ceIWQCbR0"
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2NDEzMTk2ODEsImV4cCI6MTY0MTQwNjA4MX0.wbDA5Yeqt4YzT8zGvOc7BmPi0P6UOEoWxIpaMd_W_ds"
 		}
 	]
 }

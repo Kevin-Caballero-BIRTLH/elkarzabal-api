@@ -11,8 +11,8 @@ export default class CreateRoles implements Seeder {
       .into(Role)
       .values([
         new Role(ERole[ERole.ADMIN]),
-        new Role(ERole[ERole.CUSTOMER]),
         new Role(ERole[ERole.VENDOR]),
+        new Role(ERole[ERole.CUSTOMER]),
       ])
       .execute();
   }

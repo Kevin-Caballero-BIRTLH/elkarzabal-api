@@ -61,4 +61,8 @@ export class CreateUserDto {
   @ApiProperty({ required: false, default: true })
   @IsOptional()
   active?: boolean;
+
+  @IsNotEmpty()
+  @IsString()
+  address: string;
 }
