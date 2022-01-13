@@ -1,4 +1,3 @@
-import { Address } from 'src/components/address/entities/address.entity';
 import { Order } from 'src/components/order/entities/order.entity';
 import { Product } from 'src/components/product/entities/product.entity';
 import { Role } from 'src/components/role/entities/role.entity';
@@ -47,6 +46,9 @@ export class User extends BaseEntity {
   @Column({ name: 'active', default: true })
   active: boolean;
 
+  @Column({ name: 'address' })
+  address: string;
+
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
@@ -67,8 +69,8 @@ export class User extends BaseEntity {
   @JoinColumn({ name: 'role_id' })
   role: Role;
 
-  @OneToMany(() => Address, (address) => address.user, { onDelete: 'CASCADE' })
-  addresses: Address[];
+  // @OneToMany(() => Address, (address) => address.user, { onDelete: 'CASCADE' })
+  // addresses: Address[];
 
   @OneToMany(() => Product, (product) => product.user, { onDelete: 'CASCADE' })
   products: Product[];
@@ -85,6 +87,7 @@ export class User extends BaseEntity {
     password: string,
     roleId: number,
     language: string,
+    address: string,
     group?: string,
   ) {
     super();
@@ -95,6 +98,7 @@ export class User extends BaseEntity {
     this.password = password;
     this.roleId = roleId;
     this.language = language;
+    this.address = address;
     this.group = group;
   }
 }

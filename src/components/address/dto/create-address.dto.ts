@@ -4,10 +4,11 @@ import {
   IsNumber,
   Length,
   IsPostalCode,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateAddressDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   userId: number;
 
