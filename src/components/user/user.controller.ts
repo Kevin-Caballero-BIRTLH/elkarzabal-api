@@ -39,7 +39,7 @@ export class UserController {
     const user: User = req.user;
     const queryOptions: FindOneOptions = {
       where: { id: req.user.id },
-      relations: ['role', 'addresses'],
+      relations: ['role'],
     };
     switch (user.roleId) {
       case ERole.CUSTOMER:

@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Connection } from 'typeorm';
+import { Connection, FindManyOptions } from 'typeorm';
 import { OrderProductService } from '../order-product/order-product.service';
 import { WeeklyProduct } from '../weekly-product/entities/weekly-product.entity';
 import { WeeklyProductService } from '../weekly-product/weekly-product.service';
@@ -68,8 +68,11 @@ export class OrderService {
     }
   }
 
-  findAll() {
-    return `This action returns all order`;
+  findAll(status?: EOrderStatus) {
+    if (status && Object.values(EOrderStatus).includes(+status)) {
+      return this._orderRepository.findDetailedOrders(status);
+    }
+    return this._orderRepository.findDetailedOrders();
   }
 
   findOne(id: number) {
@@ -114,6 +117,14 @@ export class OrderService {
     this._schedulerRegistry.addTimeout(`order${orderId}`, timeout);
   }
 
+  async findOneDetailed(orderId: number) {
+    const detailedOrder = await this._orderRepository.findDetailedOrderById(
+      orderId,
+    );
+    delete detailedOrder.user.password;
+    return detailedOrder;
+  }
+
   private sendOrderMail(detailedOrder: Order) {
     const orderTotal = detailedOrder.orderProducts.reduce(
       (total, orderProduct) =>
@@ -131,6 +142,7 @@ export class OrderService {
           user: detailedOrder.user,
           orderProducts: detailedOrder.orderProducts,
           total: orderTotal,
+          buttonUtl: `http://localhost/elkar/elkarzabal-web/validateOrder.html`,
         },
       })
       .then(() => {
