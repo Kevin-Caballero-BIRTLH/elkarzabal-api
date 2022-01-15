@@ -114,6 +114,14 @@ export class OrderService {
     this._schedulerRegistry.addTimeout(`order${orderId}`, timeout);
   }
 
+  async findOneDetailed(orderId: number) {
+    const detailedOrder = await this._orderRepository.findDetailedOrderById(
+      orderId,
+    );
+    delete detailedOrder.user.password;
+    return detailedOrder;
+  }
+
   private sendOrderMail(detailedOrder: Order) {
     const orderTotal = detailedOrder.orderProducts.reduce(
       (total, orderProduct) =>

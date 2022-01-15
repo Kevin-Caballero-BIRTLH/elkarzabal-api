@@ -34,6 +34,11 @@ export class OrderController {
     return this.orderService.findOne(+id);
   }
 
+  @Get(':id/detailed')
+  findOneDetailed(@Param('id') id: string) {
+    return this.orderService.findOneDetailed(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.orderService.update(+id, updateOrderDto);

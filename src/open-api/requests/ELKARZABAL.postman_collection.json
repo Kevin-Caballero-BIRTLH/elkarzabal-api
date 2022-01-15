@@ -573,7 +573,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2Mzc5NTA5NzMsImV4cCI6MTYzODAzNzM3M30.ZQERXyjRhAl-cynAsq2S43qlzJFKflwvu8QmrGwvsPQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMDk1NzcwLCJleHAiOjE2NDIxODIxNzB9.oDf_ZRrGmSR9VWAl4_CJ-VvMTudwBnx4CRSfv15xYCg",
 									"type": "string"
 								}
 							]
@@ -874,6 +874,35 @@
 							"path": [
 								"order",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get detailed order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMjcyNDE1LCJleHAiOjE2NDIzNTg4MTV9.KojdS70le5VyojVN58MVFbc-vKA-B898j0nrdKXV-dU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/order/1/detailed",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"order",
+								"1",
+								"detailed"
 							]
 						}
 					},
