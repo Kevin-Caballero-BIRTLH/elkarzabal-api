@@ -42,7 +42,7 @@ npm run schema:restart
 
 ## Stay in touch
 
-- Backend dev - [Kevin Caballero](mailto:kcaballero@birt.eus)
+- Backend dev - [Kevin Caballero](mailto:kcaballero@birt.eus) - [Github profile](https://github.com/Kevin-Caballero)
 - Backend dev - [Sara Bozal](mailto:sbozal@birt.eus)
 - Frontend dev - [Aitor Dominguez](mailto:adominguez@birt.eus)
 - Frontend dev - [Ruben Cordero](mailto:rcordero@birt.eus)

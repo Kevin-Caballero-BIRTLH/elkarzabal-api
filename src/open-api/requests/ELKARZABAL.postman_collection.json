@@ -228,7 +228,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2NDIwMjE3NTEsImV4cCI6MTY0MjEwODE1MX0.9GI_1iG995-7smy6m5s56MhTcftCXDlHAcyUaM8h9Lg",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMjcyNDE1LCJleHAiOjE2NDIzNTg4MTV9.KojdS70le5VyojVN58MVFbc-vKA-B898j0nrdKXV-dU",
 									"type": "string"
 								}
 							]
@@ -241,7 +241,8 @@
 								{
 									"key": "files",
 									"type": "file",
-									"src": "/D:/KVN/Workspace/TYPESCRIPT/ANGULAR/the-store/src/assets/images/toy.jpg"
+									"src": [],
+									"disabled": true
 								},
 								{
 									"key": "name",
@@ -468,7 +469,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{vendor-token}}",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMjcyNDE1LCJleHAiOjE2NDIzNTg4MTV9.KojdS70le5VyojVN58MVFbc-vKA-B898j0nrdKXV-dU",
 									"type": "string"
 								}
 							]
@@ -495,7 +496,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{vendor-token}}",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMjcyNDE1LCJleHAiOjE2NDIzNTg4MTV9.KojdS70le5VyojVN58MVFbc-vKA-B898j0nrdKXV-dU",
 									"type": "string"
 								}
 							]
@@ -823,7 +824,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{vendor-token}}",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMjcyNDE1LCJleHAiOjE2NDIzNTg4MTV9.KojdS70le5VyojVN58MVFbc-vKA-B898j0nrdKXV-dU",
 									"type": "string"
 								}
 							]
@@ -832,7 +833,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"orderProducts\": [\r\n        {\r\n            \"weeklyProductId\": 1,\r\n            \"quantity\": 53\r\n        },\r\n        {\r\n            \"weeklyProductId\": 2,\r\n            \"quantity\": 25\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"orderProducts\": [\r\n        {\r\n            \"weeklyProductId\": 1,\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -859,7 +860,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{vendor-token}}",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMjcyNDE1LCJleHAiOjE2NDIzNTg4MTV9.KojdS70le5VyojVN58MVFbc-vKA-B898j0nrdKXV-dU",
 									"type": "string"
 								}
 							]
@@ -907,6 +908,41 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get all orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6MSwiaWF0IjoxNjQyMjcyNDE1LCJleHAiOjE2NDIzNTg4MTV9.KojdS70le5VyojVN58MVFbc-vKA-B898j0nrdKXV-dU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/order",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "1",
+									"description": "1=pending | 2=accepted | 3=cancelled",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -939,6 +975,10 @@
 		{
 			"key": "vendor-token",
 			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZlbmRvckB2ZW5kb3IuY29tIiwic3ViIjoyLCJpYXQiOjE2NDEzMTk2ODEsImV4cCI6MTY0MTQwNjA4MX0.wbDA5Yeqt4YzT8zGvOc7BmPi0P6UOEoWxIpaMd_W_ds"
+		},
+		{
+			"value": "",
+			"type": "default"
 		}
 	]
 }
