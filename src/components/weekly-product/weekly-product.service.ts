@@ -24,8 +24,10 @@ export class WeeklyProductService {
     });
   }
 
-  findAll() {
-    return this.weeklyProductRepository.find();
+  findAll(active?: boolean) {
+    return active
+      ? this.weeklyProductRepository.find({ where: { active } })
+      : this.weeklyProductRepository.find();
   }
 
   findOne(findOneOptions: FindOneOptions) {

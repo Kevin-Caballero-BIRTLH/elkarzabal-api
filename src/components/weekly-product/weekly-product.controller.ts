@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { WeeklyProductService } from './weekly-product.service';
 import { CreateWeeklyProductDto } from './dto/create-weekly-product.dto';
@@ -21,8 +22,8 @@ export class WeeklyProductController {
   }
 
   @Get()
-  findAll() {
-    return this.weeklyProductService.findAll();
+  findAll(@Query('active') active?: string) {
+    return this.weeklyProductService.findAll(active === 'true');
   }
 
   @Get(':id')

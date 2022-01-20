@@ -22,4 +22,10 @@ export class ProductImage extends BaseEntity {
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  constructor(productId: number, filename: string) {
+    super();
+    this.productId = productId;
+    this.filename = filename;
+  }
 }

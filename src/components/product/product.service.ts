@@ -34,8 +34,12 @@ export class ProductService {
     };
   }
 
-  findAll() {
-    return this.productRepository.findAllActives();
+  async findAll() {
+    const products = await this.productRepository.findAllActives();
+    return products.map((p) => ({
+      ...p,
+      images: p.images.map((pi) => this.getUrlFromFilename(pi.filename)),
+    }));
   }
 
   async findAllBaseProduct() {
