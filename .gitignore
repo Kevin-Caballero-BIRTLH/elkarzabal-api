@@ -38,7 +38,7 @@ lerna-debug.log*
 *.env
 
 #Files
-/files/*.jpg
-/files/*.jpeg
-/files/*.png
-/files/*.gif
+# /files/*.jpg
+# /files/*.jpeg
+# /files/*.png
+# /files/*.gif
