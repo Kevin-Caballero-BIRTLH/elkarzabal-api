@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { Connection, FindManyOptions } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { Connection } from 'typeorm';
 import { OrderProductService } from '../order-product/order-product.service';
 import { WeeklyProduct } from '../weekly-product/entities/weekly-product.entity';
 import { WeeklyProductService } from '../weekly-product/weekly-product.service';
@@ -91,7 +91,10 @@ export class OrderService {
   }
 
   //an hour of margin to accept the order
-  cancelOrderTimeout(orderId: number, milliseconds: number = 1000 * 60 * 60) {
+  cancelOrderTimeout(
+    orderId: number,
+    milliseconds: number = 1000 * 60 * 60 * 24,
+  ) {
     const callback = async () => {
       //get order by id
       const order = await this._orderRepository.findDetailedOrderById(orderId);
@@ -107,7 +110,8 @@ export class OrderService {
         //refill products quantity
         order.orderProducts.forEach((op) => {
           this._weeklyProductService.update(op.weeklyProductId, {
-            currentQuantity: op.weeklyProduct.currentQuantity + op.quantity,
+            currentQuantity:
+              op.weeklyProduct.currentQuantity + Number(op.quantity),
           });
         });
       }
@@ -142,7 +146,7 @@ export class OrderService {
           user: detailedOrder.user,
           orderProducts: detailedOrder.orderProducts,
           total: orderTotal,
-          buttonUtl: `http://localhost/elkar/elkarzabal-web/validateOrder.html`,
+          buttonUrl: `http://10.2.57.202:3001/validateOrder.html`,
         },
       })
       .then(() => {
